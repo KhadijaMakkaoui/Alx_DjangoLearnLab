@@ -1,1 +1,1 @@
-Book.objects.filter(author="G Orwell").delete()
+Book.objects.filter(author="George Orwell").delete()
