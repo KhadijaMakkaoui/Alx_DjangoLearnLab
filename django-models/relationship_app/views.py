@@ -16,7 +16,7 @@ def list_books(request):
     books = Book.objects.all()
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
-@permission_required('app_name.can_add_book')
+@permission_required('relationship_app.can_add_book')
 def add_book(request):
     if request.method == "POST":
         form = BookForm(request.POST)
@@ -27,7 +27,7 @@ def add_book(request):
         form = BookForm()
     return render(request, 'books/add_book.html', {'form': form})
 
-@permission_required('app_name.can_change_book')
+@permission_required('relationship_app.can_change_book')
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
@@ -39,7 +39,7 @@ def edit_book(request, book_id):
         form = BookForm(instance=book)
     return render(request, 'books/edit_book.html', {'form': form, 'book': book})
 
-@permission_required('app_name.can_delete_book')
+@permission_required('relationship_app.can_delete_book')
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == "POST":
