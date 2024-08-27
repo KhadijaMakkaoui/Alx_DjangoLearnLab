@@ -11,6 +11,10 @@ class Book(models.Model):
 class CustomUser(AbstractUser):
     date_of_birth=models.DateField
     profile_photo=models.ImageField
+    # objects = CustomUserManager()
+
+    # def __str__(self):
+    #     return self.email
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -32,3 +36,4 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
+
