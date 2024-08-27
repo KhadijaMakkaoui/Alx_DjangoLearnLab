@@ -5,6 +5,8 @@ from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect
+
 
 # Create your views here.
 def list_books(request):
@@ -32,3 +34,4 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
+
