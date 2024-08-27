@@ -36,24 +36,22 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
 
-def Admin(user):
+def is_admin(user):
         return user.userprofile.role == 'Admin'
 
-@user_passes_test(Admin)
-def admin_view(request):
+@user_passes_test(is_admin)
+def Admin(request):
     return HttpResponse("Welcome to the Admin view!")
     
-class Librarian():
-    def is_librarian(user):
-        return user.userprofile.role == 'Librarian'
+def is_librarian(user):
+    return user.userprofile.role == 'Librarian'
 
-    @user_passes_test(is_librarian)
-    def librarian_view(request):
-        return HttpResponse("Welcome to the Librarian view!")
-class Member():
-   def is_member(user):
+@user_passes_test(is_librarian)
+def librarian_view(request):
+    return HttpResponse("Welcome to the Librarian view!")
+def is_member(user):
     return user.userprofile.role == 'Member'
 
-    @user_passes_test(is_member)
-    def member_view(request):
-        return HttpResponse("Welcome to the Member view!")
+@user_passes_test(is_member)
+def member_view(request):
+    return HttpResponse("Welcome to the Member view!")
