@@ -36,10 +36,10 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
 
-def admin(user):
+def Admin(user):
         return user.userprofile.role == 'Admin'
 
-@user_passes_test(admin)
+@user_passes_test(Admin)
 def admin_view(request):
     return HttpResponse("Welcome to the Admin view!")
     
