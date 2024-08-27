@@ -1,14 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User,AbstractUser
+from django.contrib.auth.models import User
 
 
 # Create your models here.
 class Author(models.Model):
     name=models.CharField(max_length=200)
-
-class user(AbstractUser,models.Model):
-    date_of_birth=models.DateField
-    profile_photo=models.ImageField
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
