@@ -134,10 +134,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 #Configure Browser-Side Security Headers
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True #to enable the browser’s XSS filtering and help prevent cross-site scripting attacks
+X_FRAME_OPTIONS = 'DENY'  #to prevent your site from being framed and protect against clickjacking.
+SECURE_CONTENT_TYPE_NOSNIFF = True # to prevent browsers from MIME-sniffing a response away from the declared content-type.
 
 #Secure Cookies
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+#Configure Django for HTTPS Support
+SECURE_SSL_REDIRECT = True # to redirect all non-HTTPS requests to HTTPS
+SECURE_HSTS_SECONDS = 31536000 # Set an appropriate value (e.g., 31536000 for one year) to instruct browsers to only access the site via HTTPS for the specified time.
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True #  to include all subdomains in the HSTS policy and to allow preloading
+SECURE_HSTS_PRELOAD = True #  to include all subdomains in the HSTS policy and to allow preloading
