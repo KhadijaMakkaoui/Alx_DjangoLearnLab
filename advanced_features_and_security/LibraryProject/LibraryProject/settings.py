@@ -147,3 +147,6 @@ SECURE_SSL_REDIRECT = True # to redirect all non-HTTPS requests to HTTPS
 SECURE_HSTS_SECONDS = 31536000 # Set an appropriate value (e.g., 31536000 for one year) to instruct browsers to only access the site via HTTPS for the specified time.
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True #  to include all subdomains in the HSTS policy and to allow preloading
 SECURE_HSTS_PRELOAD = True #  to include all subdomains in the HSTS policy and to allow preloading
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
