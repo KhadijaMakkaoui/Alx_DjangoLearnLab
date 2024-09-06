@@ -1,12 +1,12 @@
-##Step 1: Install Django and Django REST Framework
+## Step 1: Install Django and Django REST Framework
 
-#Install Django and DRF:
+# Install Django and DRF:
 pip install django djangorestframework
 
-#Create a Django Project:
+# Create a Django Project:
 django-admin startproject advanced_api_project
 
-#Create a Django App:
+# Create a Django App:
 cd advanced_api_project
 python manage.py startapp api
 
