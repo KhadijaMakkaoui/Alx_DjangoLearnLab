@@ -22,7 +22,7 @@ class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter,filters.OrderingFilter]
     # Enable filtering by title, author name, and publication year
-    filterset_fields = ['title', 'author__name', 'publication_year']  
+    filterset_fields = ['title', 'author__name', 'publication_year']
     # Enable searching by title and author name
     search_fields = ['title', 'author__name']  
     # Allow ordering by title and publication year
