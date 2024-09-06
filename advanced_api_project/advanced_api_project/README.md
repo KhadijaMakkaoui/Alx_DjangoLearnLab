@@ -10,43 +10,15 @@ django-admin startproject advanced_api_project
 cd advanced_api_project
 python manage.py startapp api
 
-Step 1: Install Django and Django REST Framework
-Action Items:
-Install Django and Django REST Framework using pip.
-Create a new Django project named advanced_api_project.
-Inside the project, create a new Django app named api.
-Step 2: Configure the Project
-Settings Configuration:
-Add rest_framework to INSTALLED_APPS in your project’s settings.py.
-Ensure the project is set to use Django’s default SQLite database for simplicity, or configure another database if preferred.
-Step 3: Define Data Models
-Model Requirements:
+# API Endpoints
 
-Create two models, Author and Book.
-The Author model should have the following fields:
-name: a string field to store the author’s name.
-The Book model should have the following fields:
-title: a string field for the book’s title.
-publication_year: an integer field for the year the book was published.
-author: a foreign key linking to the Author model, establishing a one-to-many relationship from Author to Books.
-Action Items:
+- `GET /books/`: Retrieve all books.
+- `GET /books/<id>/`: Retrieve a single book.
+- `POST /books/create/`: Create a new book (authenticated users only).
+- `PUT /books/<id>/update/`: Update a book (authenticated users only).
+- `DELETE /books/<id>/delete/`: Delete a book (authenticated users only).
 
-Define these models in api/models.py.
-Run migrations to create these models in the database.
-Step 4: Create Custom Serializers
-Serializer Details:
+# Permissions
 
-Create a BookSerializer that serializes all fields of the Book model.
-Create an AuthorSerializer that includes:
-The name field.
-A nested BookSerializer to serialize the related books dynamically.
-Validation Requirements:
-
-Add custom validation to the BookSerializer to ensure the publication_year is not in the future.
-Step 5: Document Your Model and Serializer Setup
-Documentation Requirements:
-In the models.py and serializers.py, add detailed comments explaining the purpose of each model and serializer.
-Describe how the relationship between Author and Book is handled in your serializers.
-Step 6: Implement and Test
-Testing Guidelines:
-Use Django admin or the Django shell to manually test creating, retrieving, and serializing Author and Book instances to ensure your serializers work as expected.
+- Unauthenticated users can view book data.
+- Authenticated users can create, update, and delete books.
