@@ -6,8 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from .models import Post, Comment, Tag
+from .models import Post, Comment
 from django.db.models import Q
+from django.forms import PostForm
 
 
 
@@ -50,7 +51,7 @@ class PostDetailView(DetailView):
 # CreateView for new post
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    form_class = PostForm
     template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
@@ -129,6 +130,6 @@ def search(request):
     return render(request, 'blog/search_results.html', {'results': results, 'query': query})
 
 def posts_by_tag(request, tag_name):
-    tag = get_object_or_404(Tag, name=tag_name)
+    tag = get_object_or_404(name=tag_name)
     posts = tag.posts.all()
     return render(request, 'blog/posts_by_tag.html', {'tag': tag, 'posts': posts})
