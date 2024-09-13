@@ -84,7 +84,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.author
     
 @login_required
-def add_comment(request, post_id):
+def CommentCreatView(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -96,12 +96,12 @@ def add_comment(request, post_id):
             return redirect('post-detail', pk=post_id)
     else:
         form = CommentForm()
-    return render(request, 'blog/add_comment.html', {'form': form, 'post': post})
+    return render(request, 'blog/templates/blog/add_comment.html', {'form': form, 'post': post})
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     form_class = CommentForm
-    template_name = 'blog/edit_comment.html'
+    template_name = 'blog/templates/blog/edit_comment.html'
 
     def test_func(self):
         comment = self.get_object()
@@ -110,7 +110,7 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
-    template_name = 'blog/delete_comment.html'
+    template_name = 'blog/templates/blog/delete_comment.html'
     success_url = reverse_lazy('post-list')
 
     def test_func(self):
