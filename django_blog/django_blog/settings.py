@@ -43,13 +43,7 @@ INSTALLED_APPS = [
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-TEMPLATES = [
-    {
-        'DIRS': [BASE_DIR / 'templates'],
-    },
+    BASE_DIR / "blog/static",
 ]
 
 MIDDLEWARE = [
@@ -67,7 +61,7 @@ ROOT_URLCONF = 'django_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
