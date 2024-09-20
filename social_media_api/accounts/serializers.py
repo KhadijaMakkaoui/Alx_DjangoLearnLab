@@ -3,7 +3,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework.authtoken.models import Token
-from .models import Post, Comment
 
 
 
@@ -45,17 +44,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ('username', 'email', 'bio', 'profile_picture', 'followers_count', 'following_count')
-
-class PostSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
-    
-    class Meta:
-        model = Post
-        fields = ['id', 'author', 'title', 'content', 'created_at', 'updated_at']
-
-class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
-    
-    class Meta:
-        model = Comment
-        fields = ['id', 'author', 'content', 'created_at', 'updated_at']
