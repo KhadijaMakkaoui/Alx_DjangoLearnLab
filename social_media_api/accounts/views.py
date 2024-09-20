@@ -51,10 +51,16 @@ def unfollow_user(request, user_id):
     return Response({'success': f'You have unfollowed {user_to_unfollow.username}'}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated])
 def user_feed(request):
-    user = request.user
-    followed_users = user.following.all()
-    posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
-    serializer = PostSerializer(posts, many=True)
-    return Response(serializer.data)
+    # Get the users that the current user is following
+    following_users = request.user.following.all()
+
+    # Get the posts from the followed users, ordered by creation date
+    posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+
+    # You may want to serialize the posts (assuming you have a PostSerializer)
+    from .serializers import PostSerializer
+    serialized_posts = PostSerializer(posts, many=True)
+
+    return Response(serialized_posts.data, status=status.HTTP_200_OK)
