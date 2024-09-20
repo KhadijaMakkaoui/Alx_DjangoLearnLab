@@ -39,8 +39,7 @@ def follow_user(request, user_id):
     try:
         # Get the user to follow from all users
         user_to_follow = CustomUser.objects.get(id=user_id)
-        # all_users = request.CustomUser.objects.all()
-
+        
         # Ensure the user is not trying to follow themselves
         if request.user == user_to_follow:
             return Response({'error': 'You cannot follow yourself.'}, status=status.HTTP_400_BAD_REQUEST)
