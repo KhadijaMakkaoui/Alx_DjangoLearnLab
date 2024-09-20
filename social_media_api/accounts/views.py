@@ -73,8 +73,8 @@ def unfollow_user(request, user_id):
 @permission_classes([permissions.IsAuthenticated])
 def user_feed(request):
     # Get the users that the current user is following
-    following_users = request.user.following.all()
-
+    #following_users = request.user.following.all()
+    following_users = request.CustomUser.objects.all()
     # Get the posts from the followed users, ordered by creation date
     posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
 
