@@ -4,18 +4,18 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
 from rest_framework.authtoken.models import Token
 
-User = get_user_model()
+
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('username', 'email', 'password', 'bio', 'profile_picture')
 
     def create(self, validated_data):
         # This is where we use the create_user method to ensure password is hashed
-        user = User.objects.create_user(
+        user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],  # This ensures password is properly hashed
@@ -25,7 +25,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         Token.objects.create(user=user)  # Create a token for the user upon registration
         return user
     
-    
+
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
@@ -42,5 +42,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
     following_count = serializers.IntegerField(source='following.count', read_only=True)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ('username', 'email', 'bio', 'profile_picture', 'followers_count', 'following_count')
