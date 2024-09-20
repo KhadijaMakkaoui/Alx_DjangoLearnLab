@@ -38,7 +38,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 def follow_user(request, user_id):
     try:
         # Get the user to follow from all users
-        user_to_follow = (CustomUser.objects.all).get(id=user_id)
+        user_to_follow = (CustomUser.objects.all()).get(id=user_id)
 
         # Ensure the user is not trying to follow themselves
         if request.user == user_to_follow:
