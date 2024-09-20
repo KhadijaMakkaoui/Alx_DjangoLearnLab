@@ -70,17 +70,3 @@ def unfollow_user(request, user_id):
     except CustomUser.DoesNotExist:
         return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
     
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-def user_feed(request):
-    # Get the users that the current user is following
-    following_users = request.user.following.all()
-
-    # Get the posts from the followed users, ordered by creation date
-    posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
-
-    # You may want to serialize the posts (assuming you have a PostSerializer)
-    from .serializers import PostSerializer
-    serialized_posts = PostSerializer(posts, many=True)
-
-    return Response(serialized_posts.data, status=status.HTTP_200_OK)
