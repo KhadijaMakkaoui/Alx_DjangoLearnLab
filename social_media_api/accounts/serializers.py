@@ -14,16 +14,18 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'bio', 'profile_picture')
 
     def create(self, validated_data):
+        # This is where we use the create_user method to ensure password is hashed
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password'],
+            password=validated_data['password'],  # This ensures password is properly hashed
             bio=validated_data.get('bio', ''),
-            profile_picture=validated_data.get('profile_picture')
+            profile_picture=validated_data.get('profile_picture', None)
         )
-        Token.objects.create(user=user)
+        Token.objects.create(user=user)  # Create a token for the user upon registration
         return user
-
+    
+    
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
