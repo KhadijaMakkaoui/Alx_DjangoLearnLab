@@ -38,7 +38,8 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 def follow_user(request, user_id):
     try:
         # Get the user to follow from all users
-        user_to_follow = CustomUser.objects.get(id=user_id)
+        #user_to_follow = CustomUser.objects.get(id=user_id)
+        user_to_follow = request.CustomUser.objects.all()
 
         # Ensure the user is not trying to follow themselves
         if request.user == user_to_follow:
@@ -73,8 +74,8 @@ def unfollow_user(request, user_id):
 @permission_classes([permissions.IsAuthenticated])
 def user_feed(request):
     # Get the users that the current user is following
-    #following_users = request.user.following.all()
-    following_users = request.CustomUser.objects.all()
+    following_users = request.user.following.all()
+
     # Get the posts from the followed users, ordered by creation date
     posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
 
