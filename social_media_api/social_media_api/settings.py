@@ -30,9 +30,9 @@ SECURE_SSL_REDIRECT = True
 SECRET_KEY = 'django-insecure-e5!6x*0_e%up4kp&6&$(rbp^cp6f+i&_=9k0&slqb)dfpgjx1a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -94,10 +94,21 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',  # Assuming PostgreSQL
+        'NAME': 'social_media',
+        'USER': 'admin',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5432',  # The port PostgreSQL typically uses
     }
 }
 
